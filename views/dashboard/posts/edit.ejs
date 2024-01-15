@@ -1,0 +1,82 @@
+<!-- Breadcrumb -->
+<nav style="--bs-breadcrumb-divider: '/'" aria-label="breadcrumb" class="small mb-4">
+  <ol class="breadcrumb">
+    <a href="#" class="text-reset me-3" onclick="return history.go(-1)">
+      <i class="bi bi-arrow-left"></i>
+    </a>
+    <li class="breadcrumb-item">
+      <a href="/dashboard" class="text-reset">Dashboard</a>
+    </li>
+    <li class="breadcrumb-item">
+      <a href="/dashboard/posts" class="text-reset">Posts</a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">Edit post</li>
+  </ol>
+</nav>
+<!-- Page content-->
+<main class="bg-white p-3 rounded-4 shadow-sm small">
+  <!-- Page content-->
+  <div class="row border-bottom pb-3">
+    <h1 class="fw-bold fs-5 my-1">Edit Post</h1>
+  </div>
+  <div class="row px-0 px-lg-3 my-3">
+    <div class="col">
+      <form action="/dashboard/posts/<%= post._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="form-group mb-4">
+          <label for="title" class="form-label fw-semibold">Title<span class="text-danger">*</span></label>
+          <input type="text" class="form-control" id="title" name="title" value="<%= post.title %>" autocomplete="off" required />
+        </div>
+        <div class="form-group mb-4">
+          <label for="image" class="form-label fw-semibold">Image</label>
+          <input type="file" class="form-control" id="image" name="image" />
+          <input type="hidden" name="old-image" value="<%= post.image %>" />
+          <div class="imgPreviewContainer border border-top-0 rounded-bottom <% if (!post.image) { %> d-none <% } %> p-2">
+            <div class="row justify-content-center">
+              <div class="col-md-8 col-lg-6">
+                <img src="/uploads/<%= post.image %>" alt="" id="imgPreview" class="rounded border w-100" style="max-height: 200px; object-fit: cover" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row mb-4">
+          <label for="category" class="form-label fw-semibold">Category</label>
+          <div class="col-lg-6">
+            <select name="category" id="category" class="form-select">
+              <% if (!post.category) { %>
+              <option value="">--Select one--</option>
+              <% } else { %>
+              <option value="">Remove category</option>
+              <% } %> <% if (postCategories) { %> <% postCategories.forEach(item => { %> <% if (post.category === item) { %>
+              <option value="<%= item %>" selected><%= capitalize(item) %></option>
+              <% } else { %>
+              <option value="<%= item %>"><%= capitalize(item) %></option>
+              <% } %> <% }) %> <% } %>
+            </select>
+          </div>
+          <div class="col-lg-6">
+            <div class="d-flex align-items-center mt-1 mt-md-0">
+              <span class="fw-semibold ms-4 me-2">New</span>
+              <input type="text" class="form-control" name="new-category" autocomplete="off" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group mb-4">
+          <label for="keywords" class="form-label fw-semibold">Keywords</label>
+          <input type="text" class="form-control" id="keywords" name="keywords" value="<%= post.keywords %>" autocomplete="off" />
+        </div>
+        <div class="form-group mb-4">
+          <label for="excerpt" class="form-label fw-semibold">Excerpt<span class="text-danger">*</span></label>
+          <textarea class="form-control" id="excerpt" name="excerpt" rows="3" maxlength="140" required><%= post.excerpt %></textarea>
+        </div>
+        <div class="form-group mb-4">
+          <label for="post-body" class="form-label fw-semibold">Body<span class="text-danger">*</span></label>
+          <textarea name="body" id="post-body" required>
+            <%= post.body %>
+          </textarea>
+        </div>
+        <button type="submit" class="btn btn-dark px-4">Save</button>
+        <button id="cancel-button" type="button" class="btn btn-outline-dark ms-2">Cancel</button>
+      </form>
+    </div>
+  </div>
+</main>

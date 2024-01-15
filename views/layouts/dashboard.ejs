@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>DevChamploo | Dashboard</title>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/assets/bootstrap-icons-1.11.3/font/bootstrap-icons.min.css" />
+    <link href="/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body class="bg-light text-body-secondary">
+    <!-- Responsive navbar-->
+    <header class="bg-light sticky-top shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light" aria-label="Offcanvas navbar large">
+        <div class="container-md col-lg-9 col-xxl-8">
+          <a class="navbar-brand brand-name fw-bolder text-body-secondary fs-6" href="/"> DevChamploo </a>
+          <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-start text-bg-light" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label" style="width: 270px">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbar2Label">
+                <a class="navbar-brand brand-name fw-bold text-body-secondary" href="/"> DevChamploo </a>
+              </h5>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 small">
+                <li class="nav-item"><a class="nav-link <%= postPage ? '' : 'active' %>" href="/dashboard">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link <%= postPage ? 'active' : '' %> me-lg-2" href="/dashboard/posts">Posts</a></li>
+                <li class="nav-item">
+                  <a class="nav-link text-danger" href="/logout" onclick="return confirm('Wanna logout?')">Logout <i class="bi bi-box-arrow-left"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="container-md my-4">
+      <div class="row justify-content-center">
+        <div class="col-lg-8"><%- body %></div>
+      </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/froala_editor.pkgd.min.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>
