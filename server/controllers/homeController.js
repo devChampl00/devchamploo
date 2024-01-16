@@ -3,7 +3,7 @@ const capitalize = require('../helpers/capitalize')
 
 const homePage = async (req, res) => {
   try {
-    let perPage = 2
+    let perPage = 10
     let page = req.query.page || 1
 
     const { order = null, category = null, tag = null, search = null } = req.query
@@ -65,11 +65,7 @@ const homePage = async (req, res) => {
         }
       ).exec()
     } else {
-      countPosts = await Post.aggregate([
-        {
-          $match: match
-        }
-      ]).then((data) => data.lentgh)
+      countPosts = await Post.aggregate([{ $match: match }]).then((data) => data.length)
     }
 
     const posts =
@@ -91,6 +87,8 @@ const homePage = async (req, res) => {
     const hasPrevPage = !(page <= 1)
     const nextPage = parseInt(page) + 1
     const hasNextPage = nextPage <= Math.ceil(count / perPage)
+
+    console.log(countPosts, hasPrevPage, hasNextPage)
 
     const postCategories = await Post.find().then((data) =>
       data

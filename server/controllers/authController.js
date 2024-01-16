@@ -32,9 +32,9 @@ const registerPost = async (req, res) => {
 const loginPage = (req, res) => {
   if (req.cookies.token) {
     res.redirect('/dashboard')
+  } else {
+    res.render('login', { layout: false })
   }
-
-  res.render('login', { layout: false })
 }
 
 const loginPost = async (req, res) => {
