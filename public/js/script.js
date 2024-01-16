@@ -25,8 +25,26 @@ try {
 }
 
 // inline editor
+
 try {
-  new FroalaEditor('#post-body')
+  tinymce.init({
+    selector: 'textarea#post-body',
+    plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount',
+    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | align lineheight | numlist bullist indent outdent | emoticons charmap | removeformat'
+  })
+
+  const postBody = document.querySelector('textarea#post-body')
+  const postForm = document.querySelector('form#post-form')
+  postForm.onsubmit = function (e) {
+    e.preventDefault()
+
+    if (!postBody.value.length) {
+      console.log('Post body is required')
+      return
+    }
+
+    postForm.submit()
+  }
 } catch (error) {
   console.log(error.message)
 }

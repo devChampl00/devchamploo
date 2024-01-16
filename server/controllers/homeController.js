@@ -3,7 +3,7 @@ const capitalize = require('../helpers/capitalize')
 
 const homePage = async (req, res) => {
   try {
-    let perPage = 10
+    let perPage = 2
     let page = req.query.page || 1
 
     const { order = null, category = null, tag = null, search = null } = req.query
