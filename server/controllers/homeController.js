@@ -88,8 +88,6 @@ const homePage = async (req, res) => {
     const nextPage = parseInt(page) + 1
     const hasNextPage = nextPage <= Math.ceil(count / perPage)
 
-    console.log(countPosts, hasPrevPage, hasNextPage)
-
     const postCategories = await Post.find().then((data) =>
       data
         .filter((x, i, self) => x.category && x.category !== undefined)
