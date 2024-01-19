@@ -34,12 +34,16 @@ app.use(
   })
 )
 
-app.use(express.static('public'))
-
 // Templating engine
 app.use(expressLayout)
 app.set('layout', './layouts/main')
+
+// app.set('view engine', 'ejs')
+// app.use(express.static('public'))
+
+app.set('views', __dirname + '/views')
 app.set('view engine', 'ejs')
+app.use(express.static(__dirname + 'public'))
 
 // app.use(uploadFile, checkFileType)
 app.use(uploadFile)
