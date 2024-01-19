@@ -38,7 +38,7 @@ app.use(
 app.use(expressLayout)
 app.set('layout', './layouts/main')
 app.set('view engine', 'ejs')
-app.use(express.static('public'))
+// app.use(express.static('public'))
 
 // vercel config
 app.set('views', __dirname + '/views')
