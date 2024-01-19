@@ -152,6 +152,7 @@ body {
 .about,
 p {
   font-family: 'PT Sans', sans-serif;
+  font-size: 1.075em;
 }
 
 .share {
