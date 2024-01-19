@@ -38,13 +38,16 @@ app.use(
 app.use(expressLayout)
 app.set('layout', './layouts/main')
 app.set('view engine', 'ejs')
-
-app.set('views', __dirname + '/views')
 app.use(express.static('public'))
-// app.use(express.static(__dirname + 'public'))
 
-// app.use(uploadFile, checkFileType)
+// vercel config
+app.set('views', __dirname + '/views')
+app.use(express.static(__dirname + '/public'))
+
 app.use(uploadFile)
+// app.use(uploadFile, checkFileType)
+
+// routes
 app.use('/', require('./server/routes/main'))
 
 // app.use((err, req, res, next) => {
