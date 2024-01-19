@@ -148,14 +148,18 @@ body {
   object-fit: cover;
 }
 
+.post-title {
+  font-family: 'PT Sans', sans-serif;
+}
+
 .post-body,
 .about {
   font-family: 'PT Sans', sans-serif;
-  font-size: 1.09em;
+  font-size: 1.1em;
 }
 
 .share {
-  margin-top: 11.6rem;
+  /* margin-top: 11.6rem; */
 }
 
 .share-link:hover {
