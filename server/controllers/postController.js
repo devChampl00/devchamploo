@@ -110,7 +110,7 @@ const updatePost = async (req, res) => {
         }
 
         if (newPost.image) {
-            if (req.body['old-image']) await unlink('../public/uploads/' + req.body['old-image'])
+            if (req.body['old-image']) await unlink('../../public/uploads/' + req.body['old-image'])
         } else {
             if (req.body['old-image']) newPost.image = req.body['old-image']
         }
@@ -132,7 +132,7 @@ const deletePost = async (req, res) => {
     try {
         const result = await Post.findByIdAndDelete(req.params.id)
         if (req.body['old-image']) {
-            await unlink('../public/uploads/' + req.body['old-image'])
+            await unlink('../../public/uploads/' + req.body['old-image'])
         }
 
         // console.log(result)
