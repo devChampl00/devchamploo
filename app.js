@@ -22,27 +22,23 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(methodOverride('_method'))
 app.use(
-  session({
-    secret: 'kosongin',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGO_URI
+    session({
+        secret: 'kosongin',
+        resave: false,
+        saveUninitialized: true,
+        store: MongoStore.create({
+            mongoUrl: process.env.MONGO_URI
+        })
+        // cookie: {maxAge: new Date(Date.now() + 3600000)}
+        // Date.now() - 30 * 24 * 60 * 60 * 1000
     })
-    // cookie: {maxAge: new Date(Date.now() + 3600000)}
-    // Date.now() - 30 * 24 * 60 * 60 * 1000
-  })
 )
 
 // Templating engine
 app.use(expressLayout)
 app.set('layout', './layouts/main')
 app.set('view engine', 'ejs')
-// app.use(express.static('public'))
-
-// vercel config
-app.set('views', __dirname + '/views')
-app.use(express.static(__dirname + '/public'))
+app.use(express.static('public'))
 
 app.use(uploadFile)
 // app.use(uploadFile, checkFileType)
@@ -63,7 +59,5 @@ app.use('/', require('./server/routes/main'))
 // })
 
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`)
+    console.log(`Server is running on http://localhost:${PORT}`)
 })
-
-module.exports = app
