@@ -9,7 +9,7 @@ const TYPE_IMAGE = {
 
 const storage = multer.diskStorage({
     destination(req, file, callback) {
-        callback(null, '../../public/uploads')
+        callback(null, __dirname + './../../public/uploads')
     },
     filename(req, file, callback) {
         const uuid = crypto.randomUUID()
