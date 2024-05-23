@@ -30,13 +30,13 @@
             <main>
                 <article class="rounded-4 bg-white p-3 py-lg-4 px-lg-5">
                     <header>
-                        <h1 class="post-title fs-3 fw-bold mt-2"><%= post.title %></h1>
-                        <div class="d-flex align-items-center mt-4">
+                        <h1 class="post-title fs-3 fw-bold mt-2 pe-5"><%= post.title %></h1>
+                        <div class="d-flex align-items-center mt-5">
                             <div class="flex-shrink-0">
                                 <img src="/img/gper.jpg" alt="Umam Alfarizi" class="rounded-circle author-post-image" />
                             </div>
                             <div class="ms-3">
-                                <h6 class="fw-semibold m-0 medium">Umam Alfarizi</h6>
+                                <h6 class="fw-semibold m-0 medium"><%= "Maulana Rizki" %></h6>
                                 <p class="small-8 m-0">
                                     <%= post.createdAt.toLocaleDateString('en-EN', { month: 'short', day: 'numeric'}) %> <% if (post.category) { %>
                                     <span class="fw-bold mx-1">&centerdot;</span>

@@ -5,64 +5,63 @@ const jwtsecret = process.env.JWT_SECRET
 
 // Register
 const registerPage = (req, res) => {
-  res.render('register')
+    res.render('register', { layout: false })
 }
 const registerPost = async (req, res) => {
-  try {
-    const { username, password } = req.body
-    const hashedPassword = await bcrypt.hash(password, 10)
-
     try {
-      console.log(username, hashedPassword)
-      const user = await User.create({ username, password: hashedPassword })
+        const { fullname, username, password } = req.body
+        const hashedPassword = await bcrypt.hash(password, 10)
 
-      res.status(201).json({ message: 'New user has created', user })
+        try {
+            const user = await User.create({ fullname, username, password: hashedPassword })
+        } catch (error) {
+            if (error.code === 11000) {
+                res.status(409).json({ message: 'Something trouble, please try again' })
+            }
+            res.status(500).json({ message: 'Internal server error' })
+        }
+
+        res.redirect('/dashboard')
     } catch (error) {
-      if (error.code === 11000) {
-        res.status(409).json({ message: 'User already in use' })
-      }
-      res.status(500).json({ message: 'Internal server error' })
+        console.log(error)
     }
-  } catch (error) {
-    console.log(error)
-  }
 }
 
 // Login
 const loginPage = (req, res) => {
-  if (req.cookies.token) {
-    res.redirect('/dashboard')
-  } else {
-    res.render('login', { layout: false })
-  }
+    if (req.cookies.token) {
+        res.redirect('/dashboard')
+    } else {
+        res.render('login', { layout: false })
+    }
 }
 
 const loginPost = async (req, res) => {
-  try {
-    const { username, password } = req.body
-    const user = await User.findOne({ username })
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid credentials' })
+    try {
+        const { username, password } = req.body
+        const user = await User.findOne({ username })
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid credentials' })
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password)
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Wrong password' })
+        }
+
+        const token = jwt.sign({ userId: user._id }, jwtsecret)
+        res.cookie('token', token, { httpOnly: true })
+
+        res.redirect('/dashboard')
+    } catch (error) {
+        console.log(error)
     }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password)
-    if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Wrong password' })
-    }
-
-    const token = jwt.sign({ userId: user._id }, jwtsecret)
-    res.cookie('token', token, { httpOnly: true })
-
-    res.redirect('/dashboard')
-  } catch (error) {
-    console.log(error)
-  }
 }
 
 // Logout
 const logout = (req, res) => {
-  res.clearCookie('token')
-  res.redirect('/')
+    res.clearCookie('token')
+    res.redirect('/')
 }
 
-module.exports = { loginPage, loginPost, logout }
+module.exports = { registerPage, registerPost, loginPage, loginPost, logout }
